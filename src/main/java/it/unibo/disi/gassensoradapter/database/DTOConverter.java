@@ -9,7 +9,7 @@ public class DTOConverter
 {
     public static GasSensorStatusResponseDTO convertGasSensorStatusToGasSensorStatusResponseDTO(final GasSensorStatus gas) {
         Assert.notNull((Object)gas, "gas sensor status is null");
-        return new GasSensorStatusResponseDTO(gas.getId(), gas.getHumidity(), gas.getResistance(), gas.getTemperature());
+        return new GasSensorStatusResponseDTO(gas.getId(), gas.getHumidity(), gas.getResistance(), gas.getTemperature(), gas.getVoltage(), gas.getIrradiance());
     }
     
     public static List<GasSensorStatusResponseDTO> convertGasSensorStatusListToGasSensorStatusResponseDTOList(final List<GasSensorStatus> sensors) {
