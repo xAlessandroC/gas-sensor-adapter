@@ -70,8 +70,14 @@ public class GasSensorController {
         if (dto.getTemperature() < 0.0){
             throw new BadPayloadException("Temperature is negative");
         }
+        if (dto.getVoltage() < 0.0){
+            throw new BadPayloadException("Voltage is negative");
+        }
+        if (dto.getIrradiance() < 0.0){
+            throw new BadPayloadException("Irradiance is negative");
+        }
 
-        final GasSensorStatus gas = this.gasSensorStatusDB.create(dto.getHumidity(), dto.getResistance(), dto.getTemperature());
+        final GasSensorStatus gas = this.gasSensorStatusDB.create(dto.getHumidity(), dto.getResistance(), dto.getTemperature(), dto.getVoltage(), dto.getIrradiance());
         return DTOConverter.convertGasSensorStatusToGasSensorStatusResponseDTO(gas);
     }
 
@@ -85,9 +91,15 @@ public class GasSensorController {
             throw new BadPayloadException("Humidity is negative");
         }
         if (dto.getTemperature() < 0.0) {
-            throw new BadPayloadException("Humidity is negative");
+            throw new BadPayloadException("Temperature is negative");
         }
-        final GasSensorStatus gas = this.gasSensorStatusDB.updateById(id, dto.getHumidity(), dto.getResistance(), dto.getTemperature());
+        if (dto.getVoltage() < 0.0) {
+            throw new BadPayloadException("Voltage is negative");
+        }
+        if (dto.getIrradiance() < 0.0) {
+            throw new BadPayloadException("Irradiance is negative");
+        }
+        final GasSensorStatus gas = this.gasSensorStatusDB.updateById(id, dto.getHumidity(), dto.getResistance(), dto.getTemperature(), dto.getVoltage(), dto.getIrradiance());
         return DTOConverter.convertGasSensorStatusToGasSensorStatusResponseDTO(gas);
     }
     

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eu.arrowhead.common.exception.BadPayloadException;
 import it.unibo.disi.gassensoradapter.database.MQTTProducer.GasSensorMQTTProducer;
+import it.unibo.disi.gassensoradapter.entity.GasSensorDutyCycle;
 
 @RestController
 @RequestMapping({ "/gas-sensor-dutycycle" })
@@ -35,14 +36,14 @@ public class GasSensorDutyCycleController {
     
     @PostMapping(consumes = {"application/json"}, produces = {"application/json"})
     @ResponseBody
-    public String createGasSensorStatus(@RequestBody final int duty_cycle){
+    public GasSensorDutyCycle createGasSensorStatus(@RequestBody final GasSensorDutyCycle duty_cycle){
         
-        if(duty_cycle <= 2 && duty_cycle > 255){
-            throw new BadPayloadException("Duty cycle must be inside [3 - 255] range!");
+        if(duty_cycle.getDutyCycle() <= 30 && duty_cycle.getDutyCycle() > 255){
+            throw new BadPayloadException("Duty cycle must be inside [30 - 255] range!");
         }
 
         try{
-            byte[] arr = ByteBuffer.allocate(4).putInt(duty_cycle).array();
+            byte[] arr = ByteBuffer.allocate(4).putInt(duty_cycle.getDutyCycle()).array();
             String base64encoded = new String(Base64.getEncoder().encode(new byte[]{arr[arr.length - 1]}));
             // String arces_payload = "{\"reference\": \"reset\", \"confirmed\": false, \"fPort\": 50, \"data\": \"" + base64encoded + "\" }";
             String ttn_payload = "{\"downlinks\": [{\"f_port\": 50,\"frm_payload\": \"" + base64encoded + "\",\"priority\": \"NORMAL\"}]}";
@@ -52,10 +53,10 @@ public class GasSensorDutyCycleController {
         catch (Exception e) {
             logger.info("Error during MQTT publishing!");
             e.printStackTrace();
-            return "error";
+            return new GasSensorDutyCycle(-1);
         }
 
-        return "Il duty cycle è " + duty_cycle;
+        return duty_cycle;
     }
 
 }

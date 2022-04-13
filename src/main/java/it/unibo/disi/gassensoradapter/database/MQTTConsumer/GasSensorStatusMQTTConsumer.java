@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import it.unibo.disi.gassensoradapter.entity.GasSensorStatusMQTTReadData;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -94,11 +96,14 @@ public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
     
     public void messageArrived(final String topic, final MqttMessage message) {
         try{
+            ObjectMapper objectMapper = new ObjectMapper();
             final String textMessage = new String(message.getPayload());
             logger.info("Message from topic " + topic + ": " + textMessage);
             final String parsedPayload = this.parsePayload(textMessage);
             logger.info("Payload:" + parsedPayload);
-            final GasSensorStatusMQTTReadData readData = (GasSensorStatusMQTTReadData)this.gson.fromJson(parsedPayload, GasSensorStatusMQTTReadData.class);
+            // final GasSensorStatusMQTTReadData readData = (GasSensorStatusMQTTReadData)this.gson.fromJson(parsedPayload, GasSensorStatusMQTTReadData.class);
+            final GasSensorStatusMQTTReadData readData = objectMapper.readValue(parsedPayload, GasSensorStatusMQTTReadData.class);
+            logger.info("Java obj:" + readData);
             this.setData(readData);
         }catch (Exception e) {
             e.printStackTrace();

@@ -45,22 +45,28 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
     public GasSensorStatus readDataFromMQTT() {
         final GasSensorStatusMQTTReadData readData = this.consumer.getData();
         logger.info("Read data: " + readData);
-        if (readData != null && readData.getHumidity() > 0.0 && readData.getTemperature() > 0.0) {
-            return this.create(readData.getHumidity(), readData.getResistance(), readData.getTemperature());
+        if (readData != null && readData.getHumidity() > 0.0 && readData.getIrradiance() >= 0.0) {
+            return this.create(readData.getHumidity(), readData.getResistance(), readData.getTemperature(), readData.getVoltage(), readData.getIrradiance());
         }
-        return new GasSensorStatus(-1, -1.0, -1.0, -1.0);
+        return new GasSensorStatus(-1, -1.0, -1.0, -1.0, -1.0, -1.0);
     }
     
-    public GasSensorStatus create(final double humidity, final double resistance, final double temperature) {
+    public GasSensorStatus create(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance) {
         if (humidity < 0.0) {
-            throw new InvalidParameterException("humidity is null or empty");
+            throw new InvalidParameterException("humidity is negative");
         }
         if (temperature < 0.0) {
-            throw new InvalidParameterException("temperature is null or empty");
+            throw new InvalidParameterException("temperature is negative");
+        }
+        if (voltage < 0.0) {
+            throw new InvalidParameterException("voltage is negative");
+        }
+        if (irradiance < 0.0) {
+            throw new InvalidParameterException("irradiance is negative");
         }
         ++this.idCounter;
         this.remove(0);
-        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature));
+        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature, voltage, irradiance));
         return (GasSensorStatus)this.get(0);
     }
     
@@ -75,7 +81,7 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
         throw new InvalidParameterException("id '" + id + "' not exists");
     }
     
-    public GasSensorStatus updateById(final int id, final double humidity, final double resistance, final double temperature) {
+    public GasSensorStatus updateById(final int id, final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance) {
         if (this.containsKey(id)) {
             final GasSensorStatus gas = (GasSensorStatus)this.get(id);
             if (humidity > 0.0) {
@@ -83,6 +89,12 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
             }
             if (temperature > 0.0) {
                 gas.setTemperature(temperature);
+            }
+            if (voltage > 0.0) {
+                gas.setVoltage(voltage);
+            }
+            if (irradiance >= 0.0) {
+                gas.setIrradiance(irradiance);
             }
             gas.setResistance(resistance);
             this.put(id, gas);

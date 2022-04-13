@@ -6,12 +6,16 @@ public class GasSensorStatusResponseDTO {
     private double humidity;
     private double resistance;
     private double temperature;
+    private double voltage;
+    private double irradiance;
 
-    public GasSensorStatusResponseDTO(int id, double humidity, double resistance, double temperature) {
+    public GasSensorStatusResponseDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance) {
         this.id = id;
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
+        this.voltage = voltage;
+        this.irradiance = irradiance;
     }
 
     public int getId(){
@@ -30,6 +34,14 @@ public class GasSensorStatusResponseDTO {
         return this.temperature;
     }
 
+    public double getVoltage(){
+        return this.voltage;
+    }
+
+    public double getIrradiance(){
+        return this.irradiance;
+    }
+
     public void setId(int id){
         this.id = id;
     }
@@ -39,11 +51,18 @@ public class GasSensorStatusResponseDTO {
     }
 
     public void setResistance(double resistance){
-        this.humidity = resistance;
+        this.resistance = resistance;
     }
 
     public void setTemperature(double temperature){
-        this.humidity = temperature;
+        this.temperature = temperature;
     }
 
+    public void setVoltage(double voltage){
+        this.voltage = voltage;
+    }
+
+    public void setIrradiance(double irradiance){
+        this.irradiance = irradiance;
+    }
 }

@@ -1,21 +1,31 @@
 package it.unibo.disi.gassensoradapter.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GasSensorStatusMQTTReadData
 {
     private double humidity;
     private double resistance;
     private double temperature;
+    private double voltage;
+    private double irradiance;
     
     public GasSensorStatusMQTTReadData() {
         this.humidity = -1.0;
         this.resistance = -1.0;
         this.temperature = -1.0;
+        this.voltage = -1.0;
+        this.irradiance = -1.0;
     }
     
-    public GasSensorStatusMQTTReadData(final double humidity, final double resistance, final double temperature) {
+    public GasSensorStatusMQTTReadData(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance) {
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
+        this.voltage = voltage;
+        this.irradiance = irradiance;
     }
     
     public double getHumidity() {
@@ -42,8 +52,26 @@ public class GasSensorStatusMQTTReadData
         this.temperature = temperature;
     }
 
+    public double getVoltage() {
+        return this.voltage;
+    }
+    
+    @JsonProperty("tensione_batteria")
+    public void setVoltage(final double voltage) {
+        this.voltage = voltage;
+    }
+
+    public double getIrradiance() {
+        return this.irradiance;
+    }
+    
+    @JsonProperty("Wmq")
+    public void setIrradiance(final double irradiance) {
+        this.irradiance = irradiance;
+    }
+
     @Override
     public String toString(){
-        return "[" + this.getHumidity() + ", " + this.getResistance() + ", " + this.getTemperature() + "]";
+        return "[" + this.getHumidity() + ", " + this.getResistance() + ", " + this.getTemperature() + ", " + this.getVoltage() + ", " + this.getIrradiance() + "]";
     }
 }
