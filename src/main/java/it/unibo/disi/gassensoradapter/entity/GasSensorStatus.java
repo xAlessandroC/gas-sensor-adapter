@@ -11,14 +11,16 @@ public class GasSensorStatus
     private double temperature;
     private double voltage;
     private double irradiance;
+    private int dutycycle;
     
-    public GasSensorStatus(final int id, final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance) {
+    public GasSensorStatus(final int id, final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle) {
         this.id = id;
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
         this.voltage = voltage;
         this.irradiance = irradiance;
+        this.dutycycle = dutycycle;
     }
     
     public int getId() {
@@ -63,5 +65,13 @@ public class GasSensorStatus
     
     public void setIrradiance(final double irradiance) {
         this.irradiance = irradiance;
+    }
+
+    public int getDutyCycle() {
+        return this.dutycycle;
+    }
+    
+    public void setDutyCycle(final int dutycycle) {
+        this.dutycycle = dutycycle;
     }
 }

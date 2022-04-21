@@ -38,7 +38,7 @@ public class GasSensorDutyCycleController {
     @ResponseBody
     public GasSensorDutyCycle createGasSensorStatus(@RequestBody final GasSensorDutyCycle duty_cycle){
         
-        if(duty_cycle.getDutyCycle() <= 10 && duty_cycle.getDutyCycle() > 33){
+        if(duty_cycle.getDutyCycle() < 10 || duty_cycle.getDutyCycle() > 33){
             throw new BadPayloadException("Duty cycle must be inside [10 - 33] range!");
         }
 

@@ -1,5 +1,7 @@
 package it.unibo.disi.gassensoradapter.database;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Dynamic;
+
 public class GasSensorStatusRequestDTO {
 
     private int id;
@@ -8,14 +10,16 @@ public class GasSensorStatusRequestDTO {
     private double temperature;
     private double voltage;
     private double irradiance;
+    private int dutycycle;
 
-    public GasSensorStatusRequestDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance) {
+    public GasSensorStatusRequestDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance, int dutycycle) {
         this.id = id;
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
         this.voltage = voltage;
         this.irradiance = irradiance;
+        this.dutycycle = dutycycle;
     }
 
     public int getId(){
@@ -64,6 +68,14 @@ public class GasSensorStatusRequestDTO {
 
     public void setIrradiance(double irradiance){
         this.irradiance = irradiance;
+    }
+
+    public int getDutyCycle() {
+        return this.dutycycle;
+    }
+    
+    public void setDutyCycle(final int dutycycle) {
+        this.dutycycle = dutycycle;
     }
 
 }
