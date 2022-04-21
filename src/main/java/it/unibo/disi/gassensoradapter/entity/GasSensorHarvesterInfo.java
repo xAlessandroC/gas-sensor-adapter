@@ -1,5 +1,8 @@
 package it.unibo.disi.gassensoradapter.entity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -36,7 +39,8 @@ public class GasSensorHarvesterInfo {
         this.Vload = Vload;
         this.devAvgI = devAvgI;
         this.batSOC = batSOC;
-        this.batV = batV;
+        BigDecimal bd = new BigDecimal(batV).setScale(2, RoundingMode.FLOOR);
+        this.batV = bd.floatValue();
         this.phIrr = phIrr;
         this.thThot = thThot;
         this.thTcold = thTcold;
@@ -100,7 +104,8 @@ public class GasSensorHarvesterInfo {
     }
 
     public void setBatV(Float batV) {
-        this.batV = batV;
+        BigDecimal bd = new BigDecimal(batV).setScale(2, RoundingMode.FLOOR);
+        this.batV = bd.floatValue();
     }
 
     public Integer getBatSOC() {
