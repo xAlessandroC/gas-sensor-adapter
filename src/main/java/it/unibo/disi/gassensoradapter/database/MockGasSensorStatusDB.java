@@ -49,11 +49,12 @@ public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorS
         double mock_irradiance_max = 2567;
         double mock_irradiance = random.nextDouble() * (mock_irradiance_max - mock_irradiance_min) + mock_irradiance_min; 
 
+        int mock_dutycycle = 33;
 
-        return this.create(mock_humidity, mock_resistance, mock_temperature, mock_voltage, mock_irradiance);
+        return this.create(mock_humidity, mock_resistance, mock_temperature, mock_voltage, mock_irradiance, mock_dutycycle);
     }
     
-    public GasSensorStatus create(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance) {
+    public GasSensorStatus create(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle) {
         if (humidity < 0.0) {
             throw new InvalidParameterException("humidity is negative");
         }
@@ -66,9 +67,12 @@ public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorS
         if (irradiance < 0.0) {
             throw new InvalidParameterException("irradiance is negative");
         }
+        if (dutycycle < 0.0) {
+            throw new InvalidParameterException("dutycycle is negative");
+        }
         ++this.idCounter;
         this.remove(0);
-        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature, voltage, irradiance));
+        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature, voltage, irradiance, dutycycle));
         return (GasSensorStatus)this.get(0);
     }
     

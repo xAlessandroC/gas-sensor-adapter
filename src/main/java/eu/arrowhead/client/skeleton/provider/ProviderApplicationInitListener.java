@@ -85,10 +85,10 @@ public class ProviderApplicationInitListener extends ApplicationInitListener
     }
     
     public void customDestroy() {
-        // this.arrowheadService.unregisterServiceFromServiceRegistry("get-gas-sensor-status");
-        // this.arrowheadService.unregisterServiceFromServiceRegistry("set-duty-cycle");
-        this.unregisterServiceFromServiceRegistry("get-gas-sensor-status", "/gas-sensor-status");
-        this.unregisterServiceFromServiceRegistry("set-duty-cycle", "/gas-sensor-dutycycle");
+        this.arrowheadService.unregisterServiceFromServiceRegistry("get-gas-sensor-status");
+        this.arrowheadService.unregisterServiceFromServiceRegistry("set-duty-cycle");
+        // this.unregisterServiceFromServiceRegistry("get-gas-sensor-status", "/gas-sensor-status");
+        // this.unregisterServiceFromServiceRegistry("set-duty-cycle", "/gas-sensor-dutycycle");
 
     }
     
