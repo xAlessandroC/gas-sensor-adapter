@@ -50,8 +50,7 @@ java -jar .\target\gas-sensor-adapter-0.0.1-SNAPSHOT.jar
  "resistance": 0.0,
  "temperature": 0.0,
  "voltage": 0.0,
- "irradiance": 0.0,
- "dutyCycle": 0
+ "irradiance": 0.0
 }
 ```
 
@@ -63,7 +62,6 @@ java -jar .\target\gas-sensor-adapter-0.0.1-SNAPSHOT.jar
 | `temperature` | Value measured for temperature | *°C* | 
 | `voltage` | Voltage of the sensor | *mv* |
 | `irradiance` | Value measured for irradiance | *W/m<sup>2</sup>* |
-| `dutyCycle` | Duty cycle of the sensor | *%* |
 
 </br>
 
