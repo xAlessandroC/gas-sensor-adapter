@@ -36,7 +36,7 @@ public class GasSensorStatusTTNMQTTConsumer extends GasSensorStatusMQTTConsumer{
         Instant timestamp_istant = Instant.parse(secondpart.subSequence(1, secondpart.length()-1));
         ZoneId zone = ZoneId.of(this.zone);
         ZonedDateTime zdt =  timestamp_istant.atZone(zone);
-        secondpart = zdt.toString().substring(0,zdt.toString().indexOf("+")) + "Z";
+        secondpart = "\"" + zdt.toString().substring(0,zdt.toString().indexOf("+")) + "Z\"";
 
         String payload = "{\"timestamp\":" + secondpart + "," + firstpart.substring(1);
 
