@@ -40,12 +40,12 @@ public class GasSensorDutyCycleController {
     @ResponseBody
     public GasSensorDutyCycle createGasSensorStatus(@RequestBody final GasSensorDutyCycle duty_cycle){
         
-        if(duty_cycle.getDutyCycle() < 10 || duty_cycle.getDutyCycle() > 33){
-            throw new BadPayloadException("Duty cycle must be inside [10 - 33] range!");
+        if(duty_cycle.getDutyCycle() < 10 || duty_cycle.getDutyCycle() > 40){
+            throw new BadPayloadException("Duty cycle must be inside [10 - 40] range!");
         }
 
         try{
-            int sleeptime = (int) ((-10*duty_cycle.getDutyCycle())+1000)/duty_cycle.getDutyCycle();
+            int sleeptime = (int) (1000/duty_cycle.getDutyCycle());
             logger.info("Computed sleeptime is " + sleeptime);
 
             byte[] arr = ByteBuffer.allocate(4).putInt(sleeptime).array();

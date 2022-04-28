@@ -33,8 +33,8 @@ public class GasSensorController {
     private static Logger logger = LoggerFactory.getLogger(GasSensorController.class);
 
     @Autowired
-    // private InMemoryGasSensorStatusDB gasSensorStatusDB;
-    private MockGasSensorStatusDB gasSensorStatusDB;
+    private InMemoryGasSensorStatusDB gasSensorStatusDB;
+    // private MockGasSensorStatusDB gasSensorStatusDB;
 
 
 	@GetMapping(produces = { "application/json" })

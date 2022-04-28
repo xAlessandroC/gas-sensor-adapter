@@ -45,7 +45,7 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
     public GasSensorStatus readDataFromMQTT() {
         final GasSensorStatusMQTTReadData readData = this.consumer.getData();
         logger.info("Read data: " + readData);
-        if (readData != null && readData.getHumidity() > 0.0 && readData.getIrradiance() >= 0.0) {
+        if (readData != null && readData.getHumidity() >= 0.0 && readData.getIrradiance() >= 0.0) {
             return this.create(readData.getHumidity(), readData.getResistance(), readData.getTemperature(), readData.getVoltage(), readData.getIrradiance(), readData.getDutyCycle());
         }
         return new GasSensorStatus(-1, -1.0, -1.0, -1.0, -1.0, -1.0, -1);

@@ -22,8 +22,8 @@ public class GasSensorHarvesterInfoController {
     private static Logger logger = LoggerFactory.getLogger(GasSensorHarvesterInfoController.class);
 
     @Autowired
-    // private InMemoryGasSensorStatusDB gasSensorStatusDB;
-    private MockGasSensorStatusDB gasSensorStatusDB;
+    private InMemoryGasSensorStatusDB gasSensorStatusDB;
+    // private MockGasSensorStatusDB gasSensorStatusDB;
 
     @GetMapping(produces = { "application/json" })
     @ResponseBody
