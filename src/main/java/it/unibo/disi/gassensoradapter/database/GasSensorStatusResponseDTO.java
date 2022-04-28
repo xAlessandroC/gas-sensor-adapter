@@ -8,14 +8,16 @@ public class GasSensorStatusResponseDTO {
     private double temperature;
     private double voltage;
     private double irradiance;
+    private String timestamp;
 
-    public GasSensorStatusResponseDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance) {
+    public GasSensorStatusResponseDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance, String timestamp) {
         this.id = id;
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
         this.voltage = voltage;
         this.irradiance = irradiance;
+        this.timestamp = timestamp;
     }
 
     public int getId(){
@@ -64,5 +66,13 @@ public class GasSensorStatusResponseDTO {
 
     public void setIrradiance(double irradiance){
         this.irradiance = irradiance;
+    }
+
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+    
+    public void setTimestamp(final String timestamp) {
+        this.timestamp = timestamp;
     }
 }

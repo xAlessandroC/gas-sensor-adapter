@@ -21,7 +21,13 @@ public class GasSensorStatusTTNMQTTConsumer extends GasSensorStatusMQTTConsumer{
     }
 
     protected String parsePayload(final String fullMessage){
-        return this.jsonSubset(fullMessage, "decoded_payload", "rx_metadata");
+        logger.info("Full message is " + fullMessage);
+
+        String firstpart = this.jsonSubset(fullMessage, "decoded_payload", "rx_metadata");
+        String secondpart = jsonSubset(fullMessage, "received_at", "uplink_message");
+        String payload = "{\"timestamp\":" + secondpart + "," + firstpart.substring(1);
+
+        return payload;
     }
     
     private String jsonSubset(final String fullMessage, final String startingFieldName, final String nextFieldName) {

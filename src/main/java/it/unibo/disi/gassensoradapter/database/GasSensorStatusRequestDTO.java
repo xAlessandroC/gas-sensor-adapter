@@ -11,8 +11,9 @@ public class GasSensorStatusRequestDTO {
     private double voltage;
     private double irradiance;
     private int dutycycle;
+    private String timestamp;
 
-    public GasSensorStatusRequestDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance, int dutycycle) {
+    public GasSensorStatusRequestDTO(int id, double humidity, double resistance, double temperature, double voltage, double irradiance, int dutycycle, String timestamp) {
         this.id = id;
         this.humidity = humidity;
         this.resistance = resistance;
@@ -20,6 +21,7 @@ public class GasSensorStatusRequestDTO {
         this.voltage = voltage;
         this.irradiance = irradiance;
         this.dutycycle = dutycycle;
+        this.timestamp = timestamp;
     }
 
     public int getId(){
@@ -76,6 +78,14 @@ public class GasSensorStatusRequestDTO {
     
     public void setDutyCycle(final int dutycycle) {
         this.dutycycle = dutycycle;
+    }
+
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+    
+    public void setTimestamp(final String timestamp) {
+        this.timestamp = timestamp;
     }
 
 }

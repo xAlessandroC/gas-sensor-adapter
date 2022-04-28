@@ -1,5 +1,6 @@
 package it.unibo.disi.gassensoradapter.database;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -51,10 +52,12 @@ public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorS
 
         int mock_dutycycle = 33;
 
-        return this.create(mock_humidity, mock_resistance, mock_temperature, mock_voltage, mock_irradiance, mock_dutycycle);
+        String mock_timestamp = "" + Instant.now();
+
+        return this.create(mock_humidity, mock_resistance, mock_temperature, mock_voltage, mock_irradiance, mock_dutycycle, mock_timestamp);
     }
     
-    public GasSensorStatus create(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle) {
+    public GasSensorStatus create(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle, final String timestamp) {
         if (humidity < 0.0) {
             throw new InvalidParameterException("humidity is negative");
         }
@@ -72,7 +75,7 @@ public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorS
         }
         ++this.idCounter;
         this.remove(0);
-        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature, voltage, irradiance, dutycycle));
+        this.put(0, new GasSensorStatus(this.idCounter, humidity, resistance, temperature, voltage, irradiance, dutycycle, timestamp));
         return (GasSensorStatus)this.get(0);
     }
     

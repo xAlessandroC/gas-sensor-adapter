@@ -12,6 +12,8 @@ public class GasSensorStatusMQTTReadData
     private double voltage;
     private double irradiance;
     private int dutycycle;
+
+    private String timestamp;
     
     public GasSensorStatusMQTTReadData() {
         this.humidity = -1.0;
@@ -22,13 +24,14 @@ public class GasSensorStatusMQTTReadData
         this.dutycycle = -1;
     }
     
-    public GasSensorStatusMQTTReadData(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle) {
+    public GasSensorStatusMQTTReadData(final double humidity, final double resistance, final double temperature, final double voltage, final double irradiance, final int dutycycle, final String timestamp) {
         this.humidity = humidity;
         this.resistance = resistance;
         this.temperature = temperature;
         this.voltage = voltage;
         this.irradiance = irradiance;
         this.dutycycle = dutycycle;
+        this.timestamp = timestamp;
     }
     
     public double getHumidity() {
@@ -80,6 +83,14 @@ public class GasSensorStatusMQTTReadData
     @JsonProperty("DutyCycle")
     public void setDutyCycle(final int dutycycle) {
         this.dutycycle = dutycycle;
+    }
+
+    public String getTimestamp() {
+        return this.timestamp;
+    }
+    
+    public void setTimestamp(final String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override

@@ -79,7 +79,7 @@ public class GasSensorController {
             throw new BadPayloadException("Irradiance is negative");
         }
 
-        final GasSensorStatus gas = this.gasSensorStatusDB.create(dto.getHumidity(), dto.getResistance(), dto.getTemperature(), dto.getVoltage(), dto.getIrradiance(), dto.getDutyCycle());
+        final GasSensorStatus gas = this.gasSensorStatusDB.create(dto.getHumidity(), dto.getResistance(), dto.getTemperature(), dto.getVoltage(), dto.getIrradiance(), dto.getDutyCycle(), dto.getTimestamp());
         return DTOConverter.convertGasSensorStatusToGasSensorStatusResponseDTO(gas);
     }
 
