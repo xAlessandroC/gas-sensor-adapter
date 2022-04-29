@@ -16,7 +16,7 @@ public class GasSensorTTNMQTTProducer extends GasSensorMQTTProducer {
     
     public GasSensorTTNMQTTProducer() {
         super(S_TOPIC, S_ADDRESS, S_PORT, S_USER, S_PASSWORD);
-        this.logger = LoggerFactory.getLogger(GasSensorArcesMQTTProducer.class);
+        this.logger = LoggerFactory.getLogger(GasSensorMockMQTTProducer.class);
         this.logger.info("Starting TTN MQTT Producer...");
     }
 

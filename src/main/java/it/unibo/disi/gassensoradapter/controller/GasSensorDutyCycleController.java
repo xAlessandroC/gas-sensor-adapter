@@ -1,9 +1,12 @@
 package it.unibo.disi.gassensoradapter.controller;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +23,7 @@ import eu.arrowhead.common.exception.BadPayloadException;
 import it.unibo.disi.gassensoradapter.database.InMemoryGasSensorStatusDB;
 import it.unibo.disi.gassensoradapter.database.MQTTProducer.GasSensorMQTTProducer;
 import it.unibo.disi.gassensoradapter.entity.GasSensorDutyCycle;
+import it.unibo.disi.gassensoradapter.observerPattern.Observer;
 
 @CrossOrigin
 @RestController
@@ -29,7 +33,8 @@ public class GasSensorDutyCycleController {
     private static Logger logger = LoggerFactory.getLogger(GasSensorDutyCycleController.class);
 
     @Autowired
-    @Qualifier("prod-ttn")
+    // @Qualifier("prod-mock")
+    @Resource(name="${producer.type}")
     private GasSensorMQTTProducer mqttProducer;
 
     @PostConstruct
@@ -62,9 +67,24 @@ public class GasSensorDutyCycleController {
             return new GasSensorDutyCycle(-1);
         }
 
-        InMemoryGasSensorStatusDB.generalDutyCycle = duty_cycle.getDutyCycle();
+        this.update(duty_cycle.getDutyCycle());
 
         return duty_cycle;
+    }
+
+
+    // Observer pattern
+    private static List<Observer> observers = new ArrayList<>();
+
+    public static void addObservable(Observer observer){
+        observers.add(observer);
+    }
+
+    private void update(int new_duty){
+
+        for (Observer observer : observers) {
+            observer.update("" + new_duty);    
+        }
     }
 
 }
