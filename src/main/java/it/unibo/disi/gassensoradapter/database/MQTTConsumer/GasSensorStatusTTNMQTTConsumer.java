@@ -1,11 +1,6 @@
 package it.unibo.disi.gassensoradapter.database.MQTTConsumer;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +13,6 @@ public class GasSensorStatusTTNMQTTConsumer extends GasSensorStatusMQTTConsumer{
     private static final String S_PORT = "8883";
     private static final String S_USER = "gas-sensor-app@ttn";
     private static final String S_PASSWORD = "NNSXS.5DXOOGOE7PITT576YNNTXQHQNIETBNL62UYGFEI.UETABWIBEVEN7NR7QQEDL4S2OD5QTQSBTMWH5NWJTNBCBKY4GMRQ";
-    
-    @Value("${zone}")
-    private String zone;
 
     public GasSensorStatusTTNMQTTConsumer() {
         super(S_TOPIC, S_ADDRESS, S_PORT, S_USER, S_PASSWORD);
@@ -33,10 +25,6 @@ public class GasSensorStatusTTNMQTTConsumer extends GasSensorStatusMQTTConsumer{
 
         String firstpart = this.jsonSubset(fullMessage, "decoded_payload", "rx_metadata");
         String secondpart = jsonSubset(fullMessage, "received_at", "uplink_message");
-        Instant timestamp_istant = Instant.parse(secondpart.subSequence(1, secondpart.length()-1));
-        ZoneId zone = ZoneId.of(this.zone);
-        ZonedDateTime zdt =  timestamp_istant.atZone(zone);
-        secondpart = "\"" + zdt.toString().substring(0,zdt.toString().indexOf("+")) + "Z\"";
 
         String payload = "{\"timestamp\":" + secondpart + "," + firstpart.substring(1);
 

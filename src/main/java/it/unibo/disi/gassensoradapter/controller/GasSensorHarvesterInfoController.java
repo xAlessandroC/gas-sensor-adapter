@@ -32,7 +32,10 @@ public class GasSensorHarvesterInfoController {
         
         GasSensorStatus status = this.gasSensorStatusDB.readDataFromMQTT();
 
-        return new GasSensorHarvesterInfo("GasSensor", "SolarLightLoad", 3.0f, 10.0f, status.getDutyCycle(), 3.3f, null, null, (float)(status.getVoltage()/1000), 700.0f, null, null, null, null, null);
+        if(InMemoryGasSensorStatusDB.generalDutyCycle == -1)
+            InMemoryGasSensorStatusDB.generalDutyCycle = status.getDutyCycle();
+
+        return new GasSensorHarvesterInfo("GasSensor", "SolarLightLoad", 3.0f, 10.0f, InMemoryGasSensorStatusDB.generalDutyCycle, 3.3f, null, null, (float)(status.getVoltage()/1000), 700.0f, null, null, null, null, null);
     }
 
 }

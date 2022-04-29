@@ -1,7 +1,5 @@
 package it.unibo.disi.gassensoradapter.database;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Dynamic;
-
 public class GasSensorStatusRequestDTO {
 
     private int id;

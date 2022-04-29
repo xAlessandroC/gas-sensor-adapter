@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.arrowhead.common.exception.BadPayloadException;
+import it.unibo.disi.gassensoradapter.database.InMemoryGasSensorStatusDB;
 import it.unibo.disi.gassensoradapter.database.MQTTProducer.GasSensorMQTTProducer;
 import it.unibo.disi.gassensoradapter.entity.GasSensorDutyCycle;
 
@@ -60,6 +61,8 @@ public class GasSensorDutyCycleController {
             e.printStackTrace();
             return new GasSensorDutyCycle(-1);
         }
+
+        InMemoryGasSensorStatusDB.generalDutyCycle = duty_cycle.getDutyCycle();
 
         return duty_cycle;
     }

@@ -25,6 +25,7 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
     private static Logger logger = LoggerFactory.getLogger(InMemoryGasSensorStatusDB.class);
     private static final long serialVersionUID = -2462387539362748691L;
     private int idCounter;
+    public static int generalDutyCycle = -1;
 
     @Autowired()
     @Qualifier("cons-ttn")
