@@ -80,7 +80,7 @@ public class GasSensorStatusMQTTReadData
         return this.dutycycle;
     }
     
-    @JsonProperty("DutyCycle")
+    @JsonProperty("Dutycycle")
     public void setDutyCycle(final int dutycycle) {
         this.dutycycle = dutycycle;
     }
@@ -95,6 +95,6 @@ public class GasSensorStatusMQTTReadData
 
     @Override
     public String toString(){
-        return "[" + this.getHumidity() + ", " + this.getResistance() + ", " + this.getTemperature() + ", " + this.getVoltage() + ", " + this.getIrradiance() + ", " + this.getDutyCycle() + "]";
+        return "[" + this.getHumidity() + ", " + this.getResistance() + ", " + this.getTemperature() + ", " + this.getVoltage() + ", " + this.getIrradiance() + ", " + this.getDutyCycle() + "," + this.getTimestamp() + "]";
     }
 }

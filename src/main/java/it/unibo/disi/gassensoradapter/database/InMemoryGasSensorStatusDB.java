@@ -17,18 +17,19 @@ import it.unibo.disi.gassensoradapter.entity.GasSensorStatus;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
-@Component
+@Component("real-db")
 @Lazy
-public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorStatus>
+public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorStatus> implements GasSensorStatusDB
 {
     private static Logger logger = LoggerFactory.getLogger(InMemoryGasSensorStatusDB.class);
     private static final long serialVersionUID = -2462387539362748691L;
     private int idCounter;
-    public static int generalDutyCycle = -1;
 
     @Autowired()
-    @Qualifier("cons-ttn")
+    // @Qualifier("cons-ttn")
+    @Resource(name="${consumer.type}")
     private GasSensorStatusMQTTConsumer consumer;
     
     public InMemoryGasSensorStatusDB() {

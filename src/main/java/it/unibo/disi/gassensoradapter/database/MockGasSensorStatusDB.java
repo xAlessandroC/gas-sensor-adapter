@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import it.unibo.disi.gassensoradapter.entity.GasSensorStatus;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
+@Component("mock-db")
 @Lazy
-public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorStatus>
+public class MockGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSensorStatus> implements GasSensorStatusDB
 {
     @SuppressWarnings("unused")
     private static Logger logger = LoggerFactory.getLogger(MockGasSensorStatusDB.class);
