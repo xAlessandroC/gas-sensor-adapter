@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public class GasSensorStatusArcesMQTTConsumer extends GasSensorStatusMQTTConsumer{
 
     private static final String S_TOPIC = "application/1/device/f2905f78ac886400/event/up";
-    private static final String S_ADDRESS = "boswamp-2.arces.unibo.it";
-    private static final String S_PORT = "8883";
+    private static final String S_ADDRESS = "192.168.1.70";
+    private static final String S_PORT = "1883";
     private static final String S_USER = "loraarces";
     private static final String S_PASSWORD = "ercoledecastro";
     
@@ -21,7 +21,18 @@ public class GasSensorStatusArcesMQTTConsumer extends GasSensorStatusMQTTConsume
     }
 
     protected String parsePayload(final String fullMessage){
-        return this.jsonSubset(fullMessage, "objectJSON", "tags");
+        logger.info("Full message is " + fullMessage);
+
+        String firstpart = this.jsonSubset(fullMessage, "objectJSON", "tags");
+        String secondpart = this.jsonSubset(fullMessage, "publishedAt", "deviceProfileID");
+
+        logger.info("Full message is " + secondpart);
+
+        String payload = "{\"timestamp\":\"" + secondpart + "\"," + firstpart.substring(1);
+
+        return payload;
+
+        // return this.jsonSubset(fullMessage, "objectJSON", "tags");
     }
     
     private String jsonSubset(final String fullMessage, final String startingFieldName, final String nextFieldName) {

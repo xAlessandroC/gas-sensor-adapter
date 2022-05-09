@@ -48,12 +48,12 @@ public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
         }
         try {
             logger.info("Trying to connect with ID " + this.clientId);
-            (this.client = new MqttClient("ssl://" + this.address + ":" + this.port, this.clientId, (MqttClientPersistence)new MemoryPersistence())).setCallback((MqttCallback)this);
+            (this.client = new MqttClient("tcp://" + this.address + ":" + this.port, this.clientId, (MqttClientPersistence)new MemoryPersistence())).setCallback((MqttCallback)this);
             final MqttConnectOptions options = new MqttConnectOptions();
             options.setCleanSession(true);
             options.setMqttVersion(3);
-            options.setUserName(this.username);
-            options.setPassword(this.password.toCharArray());
+            // options.setUserName(this.username);
+            // options.setPassword(this.password.toCharArray());
             options.setAutomaticReconnect(true);
             this.client.connect(options);
             this.client.subscribe(this.topic, 1);
