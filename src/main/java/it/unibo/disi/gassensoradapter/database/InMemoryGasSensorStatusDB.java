@@ -8,11 +8,10 @@ import it.unibo.disi.gassensoradapter.entity.GasSensorStatusMQTTReadData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import it.unibo.disi.gassensoradapter.database.MQTTConsumer.GasSensorStatusMQTTConsumer;
+import it.unibo.disi.gassensoradapter.database.MQTTConsumer.GasSensorStatusMockConsumer;
 import it.unibo.disi.gassensoradapter.entity.GasSensorStatus;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,13 +29,11 @@ public class InMemoryGasSensorStatusDB extends ConcurrentHashMap<Integer, GasSen
     @Autowired()
     // @Qualifier("cons-ttn")
     @Resource(name="${consumer.type}")
-    private GasSensorStatusMQTTConsumer consumer;
+    private GasSensorStatusMockConsumer consumer;
     
     public InMemoryGasSensorStatusDB() {
         logger.info("Starting InMemoryGasSensorStatusDB...");
         this.idCounter = 0;
-        // (this.consumer = new GasSensorStatusMQTTConsumer()).ClientInit();
-        // this.consumer.ClientInit();
     }
 
     @PostConstruct

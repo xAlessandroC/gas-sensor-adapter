@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import eu.arrowhead.common.exception.BadPayloadException;
-import it.unibo.disi.gassensoradapter.database.InMemoryGasSensorStatusDB;
 import it.unibo.disi.gassensoradapter.database.MQTTProducer.GasSensorMQTTProducer;
 import it.unibo.disi.gassensoradapter.entity.GasSensorDutyCycle;
 import it.unibo.disi.gassensoradapter.observerPattern.Observer;

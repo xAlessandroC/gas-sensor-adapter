@@ -55,6 +55,12 @@ public class ProviderApplicationInitListener extends ApplicationInitListener
     private int mySystemPort;
     private final Logger logger;
 
+    @Value(CommonConstants.$SERVICE_REGISTRY_ADDRESS_WD)
+	private String serviceReqistryAddress;
+	
+	@Value(CommonConstants.$SERVICE_REGISTRY_PORT_WD)
+	private int serviceRegistryPort;
+
     @Autowired
 	private HttpService httpService;
     
@@ -85,10 +91,10 @@ public class ProviderApplicationInitListener extends ApplicationInitListener
     }
     
     public void customDestroy() {
-        this.arrowheadService.unregisterServiceFromServiceRegistry("get-gas-sensor-status");
-        this.arrowheadService.unregisterServiceFromServiceRegistry("set-duty-cycle");
-        // this.unregisterServiceFromServiceRegistry("get-gas-sensor-status", "/gas-sensor-status");
-        // this.unregisterServiceFromServiceRegistry("set-duty-cycle", "/gas-sensor-dutycycle");
+        // this.arrowheadService.unregisterServiceFromServiceRegistry("/get-gas-sensor-status");
+        // this.arrowheadService.unregisterServiceFromServiceRegistry("/set-duty-cycle");
+        this.unregisterServiceFromServiceRegistry("get-gas-sensor-status", "/gas-sensor-status");
+        this.unregisterServiceFromServiceRegistry("set-duty-cycle", "/gas-sensor-dutycycle");
 
     }
     
@@ -148,7 +154,7 @@ public class ProviderApplicationInitListener extends ApplicationInitListener
 		queryMap.put(CommonConstants.OP_SERVICE_REGISTRY_UNREGISTER_REQUEST_PARAM_PROVIDER_PORT, List.of(String.valueOf(mySystemPort)));
 		queryMap.put(CommonConstants.OP_SERVICE_REGISTRY_UNREGISTER_REQUEST_PARAM_SERVICE_DEFINITION, List.of(serviceDefinition));
         queryMap.put("service_uri", List.of(serviceUri));
-		final UriComponents unregisterUri = Utilities.createURI(CommonConstants.HTTP, "192.168.10.70", 8443, queryMap, unregisterUriStr);
+		final UriComponents unregisterUri = Utilities.createURI(CommonConstants.HTTP, serviceReqistryAddress, serviceRegistryPort, queryMap, unregisterUriStr);
 		
 		httpService.sendRequest(unregisterUri, HttpMethod.DELETE, Void.class);
 	}

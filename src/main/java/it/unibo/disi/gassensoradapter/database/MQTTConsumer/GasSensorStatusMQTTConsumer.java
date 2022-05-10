@@ -6,8 +6,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import it.unibo.disi.gassensoradapter.entity.GasSensorStatusMQTTReadData;
 
@@ -16,8 +14,7 @@ import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 
-public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
-    protected Logger logger = LoggerFactory.getLogger(GasSensorStatusMQTTConsumer.class);
+public abstract class GasSensorStatusMQTTConsumer extends GasSensorStatusConsumer implements MqttCallback{
 
     protected String topic;
     protected String port;
@@ -27,7 +24,6 @@ public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
 
     protected MqttClient client;
     protected final String clientId;
-    protected GasSensorStatusMQTTReadData data;
     
     protected Gson gson;
     
@@ -65,10 +61,6 @@ public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
             logger.info("Error during MQTT client connection!");
             e.printStackTrace();
         }
-    }
-    
-    public GasSensorStatusMQTTReadData getData() {
-        return this.data;
     }
     
     public void Destroy() {
@@ -111,10 +103,6 @@ public abstract class GasSensorStatusMQTTConsumer implements MqttCallback{
     }
     
     public void deliveryComplete(final IMqttDeliveryToken token) {
-    }
-    
-    protected void setData(final GasSensorStatusMQTTReadData data) {
-        this.data = data;
     }
 
     abstract String parsePayload(final String fullMessage);
